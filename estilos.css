@@ -1,95 +1,147 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f6fa;
-    margin: 30px;
+/* === ESTRUCTURA BASE === */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  background-color: #f5f6fa;
 }
 
-h1, h2 {
-    color: #333;
-    text-align: center;
+/* === CABECERAS === */
+h2 {
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
 }
 
-form, table {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
-    margin: 0 auto;
-    width: 90%;
-    max-width: 700px;
+/* === FORMULARIOS === */
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 600px;
+  max-width: 95%;
+  margin: 20px auto;
+  box-shadow: 0 0 10px #ccc;
 }
 
 input, textarea, select {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0 15px;
-    border: 1px solid #bbb;
-    border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
 
+input:focus, textarea:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* === BOTONES === */
 button, .boton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  display: inline-block;
+  transition: background-color 0.3s;
 }
 
 button:hover, .boton:hover {
-    background-color: #0056b3;
+  background: #0056b3;
 }
 
-.error { color: red; text-align: center; }
-.exito { color: green; text-align: center; }
+.error {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
 
+.exito {
+  color: green;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* === TABLAS === */
 table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  background: #fff;
+  margin: 20px auto;
+  box-shadow: 0 0 5px #ccc;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  font-size: 0.95rem;
 }
 
 th {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 
-/* 📱 RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-    form, table {
-        width: 100%;
-        padding: 15px;
-    }
+/* ==========================
+   🎯 MEDIA QUERIES RESPONSIVE
+   ========================== */
 
-    th, td {
-        display: block;
-        width: 100%;
-        text-align: left;
-    }
-
-    th {
-        background-color: #0056b3;
-    }
-
-    button, .boton {
-        width: 100%;
-        margin-top: 10px;
-    }
+/* Tablets medianas (768–1024px) */
+@media (max-width: 1024px) {
+  form {
+    width: 90%;
+    padding: 15px;
+  }
+  table, th, td {
+    font-size: 0.9rem;
+  }
 }
 
+/* Móviles grandes (481–767px) */
+@media (max-width: 767px) {
+  form {
+    width: 95%;
+    padding: 15px;
+  }
+  button, .boton {
+    width: 100%;
+    margin-top: 10px;
+  }
+  th, td {
+    padding: 8px;
+  }
+}
+
+/* Móviles pequeños (≤480px) */
 @media (max-width: 480px) {
-    body {
-        margin: 10px;
-    }
-    h2 {
-        font-size: 1.2em;
-    }
+  h2 {
+    font-size: 1.2rem;
+  }
+  form {
+    padding: 10px;
+    width: 95%;
+  }
+  input, textarea, select {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+  button, .boton {
+    font-size: 0.9rem;
+    width: 100%;
+  }
+  th, td {
+    font-size: 0.85rem;
+    padding: 6px;
+  }
 }
