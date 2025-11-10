@@ -1,14 +1,17 @@
 <?php
-// conexión segura usando PDO
-$host = '192.168.1.16';
-$db   = 'justicia_para_todos';
-$user = 'root';
-$pass = 'angelo1989';
+$host = "localhost";
+$dbname = "justicia_db";
+$username = "root";
+$password = "";
 
 try {
-    $conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Error de conexión: " . $e->getMessage());
+}
+
+function limpiar($dato) {
+    return htmlspecialchars(trim($dato));
 }
 ?>
