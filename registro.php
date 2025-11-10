@@ -78,7 +78,7 @@ if (isset($_POST['guardar'])) {
     $fecha_inicio = $_POST['fecha_inicio'];
     $estado = $_POST['estado'];
     $descripcion_sentencia = $_POST['descripcion_sentencia'];
-    $fecha_cierre = $_POST['fecha_cierre'];
+    $fecha_cierre = !empty($_POST['fecha_cierre']) ? $_POST['fecha_cierre'] : NULL;
 
     if (!validarRUT($rut)) {
         echo "<p class='error'>RUT inválido.</p>";
@@ -87,15 +87,31 @@ if (isset($_POST['guardar'])) {
     } elseif (!validarTelefono($telefono)) {
         echo "<p class='error'>Teléfono inválido.</p>";
     } else {
-        $sql = "INSERT INTO clientes 
-        (rut, nombre, apellido, direccion, correo, telefono, numero_caso, descripcion_caso, fecha_inicio, estado, descripcion_sentencia, fecha_cierre)
-        VALUES 
-        ('$rut','$nombre','$apellido','$direccion','$correo','$telefono','$numero_caso','$descripcion_caso','$fecha_inicio','$estado','$descripcion_sentencia','$fecha_cierre')";
-        
-        if ($conn->query($sql) === TRUE) {
+        try {
+            $sql = "INSERT INTO clientes 
+                    (rut, nombre, apellido, direccion, correo, telefono, numero_caso, descripcion_caso, fecha_inicio, estado, descripcion_sentencia, fecha_cierre)
+                    VALUES 
+                    (:rut, :nombre, :apellido, :direccion, :correo, :telefono, :numero_caso, :descripcion_caso, :fecha_inicio, :estado, :descripcion_sentencia, :fecha_cierre)";
+            
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':rut', $rut);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':apellido', $apellido);
+            $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':correo', $correo);
+            $stmt->bindParam(':telefono', $telefono);
+            $stmt->bindParam(':numero_caso', $numero_caso);
+            $stmt->bindParam(':descripcion_caso', $descripcion_caso);
+            $stmt->bindParam(':fecha_inicio', $fecha_inicio);
+            $stmt->bindParam(':estado', $estado);
+            $stmt->bindParam(':descripcion_sentencia', $descripcion_sentencia);
+            $stmt->bindParam(':fecha_cierre', $fecha_cierre);
+
+            $stmt->execute();
+
             echo "<p class='exito'>Cliente registrado correctamente.</p>";
-        } else {
-            echo "<p class='error'>Error: " . $conn->error . "</p>";
+        } catch (PDOException $e) {
+            echo "<p class='error'>Error al guardar: " . $e->getMessage() . "</p>";
         }
     }
 }
