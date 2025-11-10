@@ -2,10 +2,9 @@
 include("conexion.php");
 
 $sql = "SELECT * FROM clientes ORDER BY id DESC";
-$stmt = $conn->query($sql); // ejecuta la consulta
-$clientes = $stmt->fetchAll(PDO::FETCH_ASSOC); // ✅ obtiene todos los registros como array asociativo
+$stmt = $conn->query($sql);
+$clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,6 +25,7 @@ $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC); // ✅ obtiene todos los registro
     <th>Estado</th>
     <th>Fecha Inicio</th>
     <th>Fecha Cierre</th>
+    <th>Acciones</th>
 </tr>
 
 <?php foreach ($clientes as $fila): ?>
@@ -38,10 +38,17 @@ $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC); // ✅ obtiene todos los registro
     <td><?= htmlspecialchars($fila['estado']) ?></td>
     <td><?= htmlspecialchars($fila['fecha_inicio']) ?></td>
     <td><?= htmlspecialchars($fila['fecha_cierre'] ?? '') ?></td>
+    <td>
+        <a href="editar.php?rut=<?= urlencode($fila['rut']) ?>" class="boton">Editar</a>
+        <a href="eliminar.php?rut=<?= urlencode($fila['rut']) ?>" class="boton eliminar" onclick="return confirm('¿Seguro que deseas eliminar este cliente?');">Eliminar</a>
+    </td>
 </tr>
 <?php endforeach; ?>
 </table>
 
-<a href="registro.php" class="boton">Registrar nuevo cliente</a>
+<div class="menu">
+    <a href="registro.php" class="boton">Registrar nuevo cliente</a>
+    <a href="index.php" class="boton">Inicio</a>
+</div>
 </body>
 </html>
